@@ -1,7 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <chrono> 
+#include <iostream> 
 
 #include "headers/MatrixUtils.hpp"
+
+using namespace std;
+using namespace std::chrono;
+
+/*
+    It seems like the runtime is the same between these. HOWEVER this will be kept in
+    mind if performance issues creep up, though only as a last resort. Since it seems like
+    mat4 containing vec4 pointers doesn't increase the run time. Though I could just need
+    better tests.
+*/
+// mat4* test_method_mat4(mat4* matrix) 
+// {
+//     matrix->col1.w = 1;
+//     matrix->col1.x = 1;
+//     matrix->col1.y = 1;
+//     matrix->col1.z = 1;
+//     return matrix;
+// }
+
+// mat4_vecptr* test_method_mat4_vecptr(mat4_vecptr* matrix) 
+// {
+//     matrix->col1->w = 1;
+//     matrix->col1->x = 1;
+//     matrix->col1->y = 1;
+//     matrix->col1->z = 1;
+//     return matrix;
+// }
 
 int main(int argc, char **argv)
 {

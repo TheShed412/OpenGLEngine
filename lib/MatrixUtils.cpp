@@ -149,3 +149,34 @@ static GLfloat determinant3x3(GLfloat** deter3) {
 
     return positive - negative;
 }
+
+// GLfloat determinant(const mat4* matrix) {
+
+//     /* values infront of the 3x3 determinants */
+//     GLfloat val1 = matrix->col1.x;
+//     GLfloat val2 = matrix->col1.y;
+//     GLfloat val3 = matrix->col1.z;
+//     GLfloat val4 = matrix->col1.w;
+
+//     GLfloat matrix_array[4][4];
+//     mat4_to_arr(matrix, matrix_array);
+
+//     GLfloat** deter1_arr = deter3_from_array(matrix_array, X);
+//     GLfloat** deter2_arr = deter3_from_array(matrix_array, Y);
+//     GLfloat** deter3_arr = deter3_from_array(matrix_array, Z);
+//     GLfloat** deter4_arr = deter3_from_array(matrix_array, W);
+
+//     GLfloat deter1 = determinant3x3(deter1_arr);
+//     GLfloat deter2 = determinant3x3(deter2_arr);
+//     GLfloat deter3 = determinant3x3(deter3_arr);
+//     GLfloat deter4 = determinant3x3(deter4_arr);
+
+//     GLfloat deter;
+//     deter = (val1*deter1) - (val2*deter2) + (val3*deter3) - (val4*deter4);
+
+//     free_arr(&deter1_arr, 3);
+//     free_arr(&deter2_arr, 3);
+//     free_arr(&deter3_arr, 3);
+//     free_arr(&deter4_arr, 3);
+//     return deter;
+// }
