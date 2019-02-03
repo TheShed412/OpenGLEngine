@@ -6,3 +6,6 @@ $(OBJDIR)/%.o: %.cpp
 
 main: $(OBJDIR)/main.o
 	g++ -std=c++11 -g -o main $(LIBDIR)/initShader.c main.cpp $(LIBFLAGS)
+
+test: $(OBJDIR)/test.o
+	g++ -std=c++11 -g -o test $(LIBDIR)/MatrixUtils.cpp test.cpp
