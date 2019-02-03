@@ -7,9 +7,10 @@ int main(int argc, char **argv)
 {
     vec4 thing1 = {1, 2, 3, 4};
     vec4 thing2 = {1, 1, 1, 1};
+    vec4* does_it_zero = new vec4;
 
-    vec4* result = vec_add(&thing1, &thing2);
-    GLfloat result2 = vec_mult(&thing1, &thing2);
+    vec4* result = VecAdd(&thing1, &thing2);
+    GLfloat result2 = VecMult(&thing1, &thing2);
     
     printf("x: %f\n", result->x);
     printf("y: %f\n", result->y);
@@ -17,4 +18,9 @@ int main(int argc, char **argv)
     printf("w: %f\n", result->w);
 
     printf("mult: %f\n", result2);
+
+    printf("x zero: %f\n", does_it_zero->x);
+    printf("y zero: %f\n", does_it_zero->y);
+    printf("z zero: %f\n", does_it_zero->z);
+    printf("w zero: %f\n", does_it_zero->w);
 }
