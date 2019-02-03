@@ -114,3 +114,38 @@ vec4* MatMultVec(const mat4* matrix, const vec4* vector)
 
     return (vec4*)result;
 }
+
+mat4* TransposeMat(const mat4* matrix)
+{
+    GLfloat* result = new GLfloat[VEC_SIZE];
+    GLfloat* matrix_dbl = (GLfloat*) matrix;
+
+    for (int i = 0; i < VEC_SIZE; i++) {
+        for (int j = 0; j < VEC_SIZE; j++) {
+            result[(VEC_SIZE*i) + j] = matrix_dbl[(VEC_SIZE*j) + i];
+        }
+    }
+
+    return (mat4*)result;
+}
+
+//// INVERSE STUFF CAUSE THAT'S HARD ////
+static GLfloat determinant3x3(GLfloat** deter3) {
+
+    GLfloat a11 = deter3[0][0];
+    GLfloat a12 = deter3[0][1];
+    GLfloat a13 = deter3[0][2];
+
+    GLfloat a21 = deter3[1][0];
+    GLfloat a22 = deter3[1][1];
+    GLfloat a23 = deter3[1][2];
+
+    GLfloat a31 = deter3[2][0];
+    GLfloat a32 = deter3[2][1];
+    GLfloat a33 = deter3[2][2];
+
+    GLfloat positive = (a11*a22*a33) + (a12*a23*a31) + (a21*a32*a13);
+    GLfloat negative = (a13*a22*a31) + (a21*a12*a33) + (a23*a32*a11);
+
+    return positive - negative;
+}

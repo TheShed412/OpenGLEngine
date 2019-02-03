@@ -35,5 +35,6 @@ vec4* MatMultVec(const mat4* matrix, const vec4* vector);
 mat4* MatSub(const mat4* left, const mat4* right);
 mat4* MatAdd(const mat4* left, const mat4* right);
 vec4* ScalarMultVec(const vec4* vector, GLfloat scalar);
+mat4* TransposeMat(const mat4* matrix);
 
 #endif
