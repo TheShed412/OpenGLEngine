@@ -68,6 +68,15 @@ int main(int argc, char **argv)
                3,  7,  11,  15,
                4,  8,  12, -16};
     
+    mat4 m2 = {4,  8,  12,  16,
+               3,  7,  11,  15,
+               2,  6,  10,  14,
+               1,  5,  9,   13};
+    
     mat4* res = InvertMat(&m1);
+    mat4* product = MatMult(&m1, &m2);
+    printf("MULT\n");
+    print_inverse_mat4(product);
+    printf("INVERSE\n");
     print_inverse_mat4(res);
 }

@@ -150,6 +150,52 @@ static GLfloat determinant3x3(GLfloat** deter3) {
     return positive - negative;
 }
 
+static vec4* vec_from_row(const GLfloat* matrix, int row){
+    GLfloat* result = new GLfloat[VEC_SIZE];
+
+    /* looping across the columns to get the rows */
+    for(int i = 0; i < VEC_SIZE; i ++) {
+        result[i] = matrix[(VEC_SIZE*row) + i];
+    }
+
+    return (vec4*)result;
+}
+
+static vec4* vec_from_col(const GLfloat* matrix, int row){
+    GLfloat* result = new GLfloat[VEC_SIZE];
+
+    /* looping across the columns to get the rows */
+    for(int i = 0; i < VEC_SIZE; i ++) {
+        result[i] = matrix[(VEC_SIZE*i) + row];
+    }
+
+    return (vec4*)result;
+}
+
+
+mat4* MatMult(const mat4* left, const mat4* right)
+{
+    vec4 row_vec; // vec from the left_op
+    vec4 col_vec; // vec from the right_op
+    GLfloat* result = new GLfloat[MAT_SIZE];
+    GLfloat* left_op = (GLfloat*) left;
+    GLfloat* right_op = (GLfloat*) right;
+
+    /* loop is iterating through the rows */
+    for(int row_i = 0; row_i < VEC_SIZE; row_i++) {
+        row_vec = (*vec_from_row(left_op, row_i));
+
+        for(int col_j = 0; col_j < VEC_SIZE; col_j++) {
+            col_vec = (*vec_from_col(right_op, col_j));
+            GLfloat point = VecMult(&row_vec, &col_vec);
+            result[(VEC_SIZE*row_i) + col_j] = point;
+        }
+    }
+
+    return (mat4*)result;
+}
+
+/* based on implementation from mesa */
 mat4* InvertMat(const mat4* matrix)
 {
     GLfloat* result = new GLfloat[VEC_SIZE];

@@ -39,5 +39,6 @@ mat4* MatAdd(const mat4* left, const mat4* right);
 vec4* ScalarMultVec(const vec4* vector, GLfloat scalar);
 mat4* TransposeMat(const mat4* matrix);
 mat4* InvertMat(const mat4* matrix);
+mat4* MatMult(const mat4* left, const mat4* right);
 
 #endif
