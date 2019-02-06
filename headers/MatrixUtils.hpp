@@ -9,6 +9,8 @@
 
 #define VEC_SIZE 4
 #define MAT_SIZE VEC_SIZE * VEC_SIZE
+#define NESTED_LOOP (VEC_SIZE*i) + j
+#define INVERT_NESTED_LOOP (VEC_SIZE*j) + i
 
 typedef struct vec4
 {
@@ -36,5 +38,6 @@ mat4* MatSub(const mat4* left, const mat4* right);
 mat4* MatAdd(const mat4* left, const mat4* right);
 vec4* ScalarMultVec(const vec4* vector, GLfloat scalar);
 mat4* TransposeMat(const mat4* matrix);
+mat4* InvertMat(const mat4* matrix);
 
 #endif

@@ -32,6 +32,16 @@ using namespace std::chrono;
 //     return matrix;
 // }
 
+void print_inverse_mat4(const mat4* matrix) {
+    GLfloat* m = (GLfloat*) matrix;
+    for (int i=0; i < VEC_SIZE; i ++) {
+        for (int j=0; j < VEC_SIZE; j++) {
+            printf("%.3f\t", m[NESTED_LOOP]);
+        }
+        printf("\n");
+    }
+}
+
 int main(int argc, char **argv)
 {
     vec4 thing1 = {1, 2, 3, 4};
@@ -52,4 +62,12 @@ int main(int argc, char **argv)
     printf("y zero: %f\n", does_it_zero->y);
     printf("z zero: %f\n", does_it_zero->z);
     printf("w zero: %f\n", does_it_zero->w);
+
+    mat4 m1 = {1, -5,  9,   13,
+               2,  6, -10,  14,
+               3,  7,  11,  15,
+               4,  8,  12, -16};
+    
+    mat4* res = InvertMat(&m1);
+    print_inverse_mat4(res);
 }
