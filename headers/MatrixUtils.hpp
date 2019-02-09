@@ -6,6 +6,7 @@
 #include <GL/freeglut_ext.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cmath>
 
 #define VEC_SIZE 4
 #define MAT_SIZE VEC_SIZE * VEC_SIZE

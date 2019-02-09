@@ -32,6 +32,11 @@ GLfloat VecMult(const vec4* left, const vec4* right)
     return result;
 }
 
+GLfloat VecMag(const vec4* vec) 
+{
+    return sqrt(vec->x*vec->x + vec->y*vec->y + vec->z*vec->z);
+}
+
 vec4* VecCross(const vec4* left, const vec4* right)
 {
     GLfloat* result = new GLfloat[VEC_SIZE];
