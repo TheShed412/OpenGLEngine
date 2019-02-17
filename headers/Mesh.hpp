@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 struct Vertex {
     vec3 Position;
     vec3 Normal;
@@ -30,10 +29,10 @@ class Mesh {
         Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
         void Draw(Shader shader);
     private:
-        /*  Render data  */
-        unsigned int VAO, VBO, EBO;
         /*  Functions    */
         void setupMesh();
+        /*  Render data  */
+        unsigned int VAO, VBO, EBO;
 };  
 
 #endif
