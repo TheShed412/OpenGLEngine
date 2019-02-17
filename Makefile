@@ -1,7 +1,7 @@
 OBJDIR=obj
 LIBDIR=lib
 LIBFLAGS=-lXi -lXmu -lglfw -lGLEW -lGLU -lm -lGL -lglut
-LIBMEMBERS=$(LIBDIR)/Shader.cpp
+LIBMEMBERS=$(LIBDIR)/Shader.cpp $(LIBDIR)/Mesh.cpp
 
 $(OBJDIR)/%.o: %.cpp
 	g++ -std=c++11 -g -c -o $@ $<
