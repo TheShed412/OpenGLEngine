@@ -16,7 +16,8 @@
 #include <time.h>
 
 // my shit
-#include "headers/initShader.h"
+// #include "headers/initShader.h"
+#include "headers/Shader.hpp"
 
 // Window dimensions
 const GLint WIDTH = 800, HEIGHT = 600;
@@ -41,6 +42,8 @@ int main(int argc, char **argv)
 
 void init(void) 
 {
-    GLuint program = initShader("shaders/vshader.glsl", "shaders/fshader.glsl");
-    glUseProgram(program);
+    // GLuint program = initShader("shaders/vshader.glsl", "shaders/fshader.glsl");
+    // glUseProgram(program);
+    Shader shaders("shaders/vshader.glsl", "shaders/fshader.glsl");
+    shaders.use();
 }

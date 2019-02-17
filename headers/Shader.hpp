@@ -1,7 +1,10 @@
 #ifndef MASTERSHADER_LIKE_MASTERBATOR
 #define MASTERSHADER_LIKE_MASTERBATOR
 
-#include <glad/glad.h> // include glad to get all the required OpenGL headers
+//#include <glad/glad.h> // include glad to get all the required OpenGL headers
+#include <GL/glew.h>
+#include <GL/freeglut.h>
+#include <GL/freeglut_ext.h>
   
 #include <string>
 #include <fstream>
