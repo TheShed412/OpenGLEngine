@@ -57,15 +57,16 @@ bool ObjectLoader::LoadObject(const char* path, vector<vec3>& out_verts, vector<
             modelLineStream >> uv.x >> uv.y;
             temp_uvs.push_back(uv);
         } else if(typeStr == "f") {
+            // /int/int:
             string face1;
             string face2;
             string face3;
             modelLineStream >> face1 >> face2 >> face3;
 
             unsigned int vertIndex[3], uvIndex[3], normalIndex[3];
-            sscanf(face1.c_str(), "%d/%d/%d", &vertIndex[0], &vertIndex[1], &vertIndex[2]);
-            sscanf(face2.c_str(), "%d/%d/%d", &uvIndex[0], &uvIndex[1], &uvIndex[2]);
-            sscanf(face3.c_str(), "%d/%d/%d", &normalIndex[0], &normalIndex[1], &normalIndex[2]);
+            sscanf(face1.c_str(), "%d/%d/%d", &vertIndex[0], &uvIndex[0], &normalIndex[0]);
+            sscanf(face2.c_str(), "%d/%d/%d", &vertIndex[1], &uvIndex[1], &normalIndex[1]);
+            sscanf(face3.c_str(), "%d/%d/%d", &vertIndex[2], &uvIndex[2], &normalIndex[2]);
             for(int i = 0; i < 3; i++) {
                 vector_indecies.push_back(vertIndex[i]);
                 uv_indices.push_back(uvIndex[i]);
