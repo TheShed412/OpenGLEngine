@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutInitWindowPosition(100,100);
-    glutCreateWindow("Cone");
+    glutCreateWindow("Testing");
     glewInit();
     init();
     glutMainLoop();
