@@ -18,6 +18,7 @@
 // my shit
 // #include "headers/initShader.h"
 #include "headers/Shader.hpp"
+#include "headers/ObjectLoader.hpp"
 
 // Window dimensions
 const GLint WIDTH = 800, HEIGHT = 600;
@@ -46,4 +47,8 @@ void init(void)
     // glUseProgram(program);
     Shader shaders("shaders/vshader.glsl", "shaders/fshader.glsl");
     shaders.use();
+    ObjectLoader objLoader;
+    vector<vec3> temp_vec3;
+    vector<vec2> temp_vec2;
+    objLoader.LoadObject("models/test_cube.obj", temp_vec3, temp_vec2, temp_vec3);
 }
