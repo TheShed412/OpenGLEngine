@@ -60,9 +60,17 @@ bool ObjectLoader::LoadObject(const char* path, vector<vec3>& out_verts, vector<
             string face1;
             string face2;
             string face3;
-
             modelLineStream >> face1 >> face2 >> face3;
-            cout << face1 << face2 << face3 << endl;
+
+            unsigned int vertIndex[3], uvIndex[3], normalIndex[3];
+            sscanf(face1.c_str(), "%d/%d/%d", &vertIndex[0], &vertIndex[1], &vertIndex[2]);
+            sscanf(face2.c_str(), "%d/%d/%d", &uvIndex[0], &uvIndex[1], &uvIndex[2]);
+            sscanf(face3.c_str(), "%d/%d/%d", &normalIndex[0], &normalIndex[1], &normalIndex[2]);
+            for(int i = 0; i < 3; i++) {
+                vector_indecies.push_back(vertIndex[i]);
+                uv_indices.push_back(uvIndex[i]);
+                noramal_indecies.push_back(normalIndex[i]);
+            }
         }
     }
 
