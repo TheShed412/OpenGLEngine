@@ -388,7 +388,6 @@ mat4* InvertMat(const mat4* matrix)
 
 /* this might only work for objects with center at origin...maybe i dunno. not like i wrote it. oh wait. */
 mat4* ArbitrayRotate(GLfloat zTheta, const vec4* axis) {
-    vec4* toOrigin = VecSub(&origin, axis);
     GLfloat sizeOfAxis = sqrt(axis->x*axis->x + axis->z*axis->z + axis->y*axis->y);
     vec4* atOrigin = ScalarMultVec(axis, 1/sizeOfAxis);
 
@@ -424,7 +423,24 @@ mat4* ArbitrayRotate(GLfloat zTheta, const vec4* axis) {
     rotToZ.col3.x = vx;
     rotToZ.col3.z = d;
 
-    vec4* atZ = MatMultVec(&rotToZ, atYZPlane);
-
     mat4 rotAroundZ = GetRotationMatrix(-1 * zTheta, Z);
+
+    mat4* doRotateMat = MatMult(&rotToZ, &rotToYZPlane);
+    doRotateMat = MatMult(&rotAroundZ, doRotateMat);
+
+    mat4* rotFromZ = InvertMat(&rotToZ);
+    mat4* rotFromYZ = InvertMat(&rotToYZPlane);
+
+    mat4* undoRotate = MatMult(rotFromYZ, rotFromZ);
+
+    mat4* final_mat = MatMult(undoRotate, doRotateMat);
+
+    delete rotFromZ;
+    delete rotFromYZ;
+    delete doRotateMat;
+    delete undoRotate;
+    delete atYZPlane;
+    delete atOrigin;
+
+    return final_mat;
 }
