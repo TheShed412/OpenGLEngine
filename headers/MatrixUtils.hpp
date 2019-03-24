@@ -13,6 +13,12 @@
 #define NESTED_LOOP (VEC_SIZE*i) + j
 #define INVERT_NESTED_LOOP (VEC_SIZE*j) + i
 
+#define X_AXIS 0
+#define Y_AXIS 1
+#define Z_AXIS 2
+
+
+//TODO make all of these calsses with nifty constructors
 typedef struct vec4
 {
     GLfloat x;
@@ -40,6 +46,14 @@ typedef struct mat4
     vec4 col2;
     vec4 col3;
     vec4 col4;
+
+    public:
+    mat4() {
+        col1 = {1, 0, 0, 0};
+        col2 = {0, 1, 0, 0};
+        col3 = {0, 0, 1, 0};
+        col4 = {0, 0, 0, 1};
+    }
 } mat4;
 
 vec4* VecAdd(const vec4* left, const vec4* right);

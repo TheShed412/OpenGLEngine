@@ -1,10 +1,84 @@
 #include "../headers/MatrixUtils.hpp"
-
+//TODO return normal mats in all of the functions
 #define X 0
 #define Y 0
 #define Z 0
 #define W 0
 
+vec4 origin = {0, 0, 0, 0};
+
+mat4* GetIdentityMatrix() {
+    mat4* id = new mat4;
+
+    return id;
+}
+
+//TODO use the rotation caculation in the arbitrary rotate instead
+mat4 XRotate(GLfloat theta) 
+{
+    mat4 rotMat;
+
+    GLfloat cosTheta = cos(theta);
+    GLfloat sinTheta = sin(theta);
+
+    rotMat.col2.y = cosTheta;
+    rotMat.col3.y = sinTheta * -1;
+    rotMat.col2.z = sinTheta;
+    rotMat.col3.z = cosTheta;
+
+    return rotMat;
+}
+
+mat4 YRotate(GLfloat theta) 
+{
+    mat4 rotMat;
+
+    GLfloat cosTheta = cos(theta);
+    GLfloat sinTheta = sin(theta);
+
+    rotMat.col1.x = cosTheta;
+    rotMat.col1.z = sinTheta * -1;
+    rotMat.col3.x = sinTheta;
+    rotMat.col3.z = cosTheta;
+
+    return rotMat;
+}
+
+mat4 ZRotate(GLfloat theta) 
+{
+    mat4 rotMat;
+
+    GLfloat cosTheta = cos(theta);
+    GLfloat sinTheta = sin(theta);
+
+    rotMat.col1.x = cosTheta;
+    rotMat.col2.x = sinTheta * -1;
+    rotMat.col1.y = sinTheta;
+    rotMat.col2.y = cosTheta;
+
+    return rotMat;
+}
+
+mat4 GetRotationMatrix(GLfloat theta, int axis) 
+{
+    mat4 rotMat;
+
+    switch(axis) {
+        case X_AXIS:
+            rotMat = XRotate(theta);
+        break;
+
+        case Y_AXIS:
+            rotMat = YRotate(theta);
+        break;
+
+        case Z_AXIS:
+            rotMat = ZRotate(theta);
+        break;
+    }
+
+    return rotMat;
+}
 
 vec4* VecAdd(const vec4* left, const vec4* right)
 {
@@ -132,27 +206,6 @@ mat4* TransposeMat(const mat4* matrix)
     }
 
     return (mat4*)result;
-}
-
-//// INVERSE STUFF CAUSE THAT'S HARD ////
-static GLfloat determinant3x3(GLfloat** deter3) {
-
-    GLfloat a11 = deter3[0][0];
-    GLfloat a12 = deter3[0][1];
-    GLfloat a13 = deter3[0][2];
-
-    GLfloat a21 = deter3[1][0];
-    GLfloat a22 = deter3[1][1];
-    GLfloat a23 = deter3[1][2];
-
-    GLfloat a31 = deter3[2][0];
-    GLfloat a32 = deter3[2][1];
-    GLfloat a33 = deter3[2][2];
-
-    GLfloat positive = (a11*a22*a33) + (a12*a23*a31) + (a21*a32*a13);
-    GLfloat negative = (a13*a22*a31) + (a21*a12*a33) + (a23*a32*a11);
-
-    return positive - negative;
 }
 
 static vec4* vec_from_row(const GLfloat* matrix, int row){
@@ -331,4 +384,47 @@ mat4* InvertMat(const mat4* matrix)
         result[i] = inv[i] * det;
 
     return (mat4*)result;
+}
+
+/* this might only work for objects with center at origin...maybe i dunno. not like i wrote it. oh wait. */
+mat4* ArbitrayRotate(GLfloat zTheta, const vec4* axis) {
+    vec4* toOrigin = VecSub(&origin, axis);
+    GLfloat sizeOfAxis = sqrt(axis->x*axis->x + axis->z*axis->z + axis->y*axis->y);
+    vec4* atOrigin = ScalarMultVec(axis, 1/sizeOfAxis);
+
+    GLfloat vx = atOrigin->x;
+    GLfloat vy = atOrigin->y;
+    GLfloat vz = atOrigin->z;
+    GLfloat d = sqrt(vy*vy + vz*vz);
+
+    // mat4 rotToYZPlane = {
+    //     1,     0,    0, 0,
+    //     0,  vz/d, vy/d, 0,
+    //     0, -vy/d, vz/d, 0,
+    //     0,     0,    0, 1,
+    // };
+    mat4 rotToYZPlane;
+    rotToYZPlane.col2.y = vz/d;
+    rotToYZPlane.col2.z = -vz/d;
+    rotToYZPlane.col3.y = vz/d;
+    rotToYZPlane.col3.z = vz/d;
+
+    vec4* atYZPlane = MatMultVec(&rotToYZPlane, atOrigin);
+
+    GLfloat zAdj = sqrt(vz*vz + vx*vx);
+    // mat4 rotToZ = {
+    //     d,   0, vx, 0,
+    //     0,   1, 0,  0,
+    //     -vx, 0, d,  0,
+    //     0,   0, 0,  1
+    // };
+    mat4 rotToZ;
+    rotToZ.col1.x = d;
+    rotToZ.col1.z = -vx;
+    rotToZ.col3.x = vx;
+    rotToZ.col3.z = d;
+
+    vec4* atZ = MatMultVec(&rotToZ, atYZPlane);
+
+    mat4 rotAroundZ = GetRotationMatrix(-1 * zTheta, Z);
 }
