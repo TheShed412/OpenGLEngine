@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "MatrixUtils.hpp"
+#include "Mesh.hpp"
 
 using namespace std;
 
@@ -11,7 +12,7 @@ class ObjectLoader {
 
     public:
         ObjectLoader();
-        bool LoadObject(const char* path, 
+        Mesh *LoadObject(const char* path, 
             vector<vec3>& out_verts, 
             vector<vec2>& out_uvs, 
             vector<vec3>& out_norms);

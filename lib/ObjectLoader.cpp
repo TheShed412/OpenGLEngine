@@ -1,5 +1,4 @@
 #include "../headers/ObjectLoader.hpp"
-#include "../headers/Mesh.hpp"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -19,7 +18,7 @@ bool hasUvIndexes(string face) {
 ObjectLoader::ObjectLoader() {}
 
 // TODO reimplement this with my meshes object
-bool ObjectLoader::LoadObject(const char* path, vector<vec3>& out_verts, vector<vec2>& out_uvs, vector<vec3>& out_norms) {
+Mesh *ObjectLoader::LoadObject(const char* path, vector<vec3>& out_verts, vector<vec2>& out_uvs, vector<vec3>& out_norms) {
     vector<int> vector_indecies, uv_indices, noramal_indecies;
     vector<vec3> temp_verts;
     vector<vec2> temp_uvs;
@@ -28,7 +27,7 @@ bool ObjectLoader::LoadObject(const char* path, vector<vec3>& out_verts, vector<
     ifstream model(path, ios::in);
     if (!model) {
         cout << "Won't open" << endl;
-        return false;
+        return nullptr;
     }
 
     string modelLine;
@@ -137,9 +136,5 @@ bool ObjectLoader::LoadObject(const char* path, vector<vec3>& out_verts, vector<
     indecies.insert(indecies.end(), noramal_indecies.begin(), noramal_indecies.end());
     indecies.insert(indecies.end(), uv_indices.begin(), uv_indices.end());
 
-
-    Mesh obj_mesh(vertices, indecies, textures);
-
-
-    return true;
+    return new Mesh(vertices, indecies, textures);
 }
