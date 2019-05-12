@@ -48,7 +48,11 @@ void init(void)
     Shader shaders("shaders/vshader.glsl", "shaders/fshader.glsl");
     shaders.use();
     ObjectLoader objLoader;
-    vector<vec3> temp_vec3;
-    vector<vec2> temp_vec2;
-    objLoader.LoadObject("models/test_cube.obj", temp_vec3, temp_vec2, temp_vec3);
+    vector<vec3> verts;
+    vector<vec2> uvs;
+    vector<vec3> norms;
+    objLoader.LoadObject("models/test_cube.obj", verts, uvs, norms);
+    cout << "norm size " << norms.size() << endl;
+    cout << "verts size " << verts.size() << endl;
+    cout << "uvs size " << uvs.size() << endl;
 }

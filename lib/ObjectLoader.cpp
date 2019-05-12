@@ -66,7 +66,6 @@ bool ObjectLoader::LoadObject(const char* path, vector<vec3>& out_verts, vector<
                     noramal_indecies.push_back(normalIndex[i]);
                     uv_indices.push_back(uvIndex[i]);
                 }
-                cout << "normalIndex " << normalIndex[0] << endl;
             } else {
                 int vertIndex[3], normalIndex[3];
                 sscanf(face1.c_str(), "%d//%d", &vertIndex[0], &normalIndex[0]);
