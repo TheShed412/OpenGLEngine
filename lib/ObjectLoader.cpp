@@ -1,4 +1,5 @@
 #include "../headers/ObjectLoader.hpp"
+#include "../headers/Mesh.hpp"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -17,6 +18,7 @@ bool hasUvIndexes(string face) {
 
 ObjectLoader::ObjectLoader() {}
 
+// TODO reimplement this with my meshes object
 bool ObjectLoader::LoadObject(const char* path, vector<vec3>& out_verts, vector<vec2>& out_uvs, vector<vec3>& out_norms) {
     vector<int> vector_indecies, uv_indices, noramal_indecies;
     vector<vec3> temp_verts;
@@ -49,6 +51,7 @@ bool ObjectLoader::LoadObject(const char* path, vector<vec3>& out_verts, vector<
             modelLineStream >> uv.x >> uv.y;
             temp_uvs.push_back(uv);
         } else if(typeStr == "f") {
+            // Each one of these are going to be a vertex in a mesh
             // /int/int:
             string face1;
             string face2;
@@ -83,6 +86,7 @@ bool ObjectLoader::LoadObject(const char* path, vector<vec3>& out_verts, vector<
         Processing step. Take the f part and use it to construct our outputs
     */
 
+   
    for(int i = 0; i < vector_indecies.size(); i++) {
        int vector_index = vector_indecies[i];
        vec3 vector = temp_verts[vector_index-1];
