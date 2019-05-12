@@ -88,22 +88,58 @@ bool ObjectLoader::LoadObject(const char* path, vector<vec3>& out_verts, vector<
 
    
    for(int i = 0; i < vector_indecies.size(); i++) {
-       int vector_index = vector_indecies[i];
+       int vector_index = vector_indecies[i];// this will fill the mesh indecies array
        vec3 vector = temp_verts[vector_index-1];
        out_verts.push_back(vector);
    }
 
    for(int i = 0; i < uv_indices.size(); i++) {
-       int uv_index = uv_indices[i];
+       int uv_index = uv_indices[i];// this will fill the mesh indecies array
        vec2 uv = temp_uvs[uv_index-1];
        out_uvs.push_back(uv);
    }
 
    for(int i = 0; i < noramal_indecies.size(); i++) {
-       int norm_index = noramal_indecies[i];
+       int norm_index = noramal_indecies[i];// this will fill the mesh indecies array
        vec3 norm = temp_norms[norm_index-1];
        out_norms.push_back(norm);
    }
+
+   /**
+    * Creating a Mesh from the stuff above
+   */
+
+    vector<Vertex> vertices;
+    vector<unsigned int> indecies;
+    vector<Texture> textures;
+
+    // assume size of indecies will be the same or 0 for now
+    for (unsigned int i = 0; i < vector_indecies.size(); i++) {
+        if (uv_indices.size() < 1) { // pull this if out
+            unsigned int norm_index = noramal_indecies[i];
+            unsigned int vector_index = vector_indecies[i];
+
+            vec3 norm = temp_norms[norm_index-1];
+            vec3 vector = temp_verts[vector_index-1];
+            vec2 empty_tex;
+
+            Vertex vertex;
+            vertex.Normal = norm;
+            vertex.Position = vector;
+            vertex.TexCoords = empty_tex;
+        } else {
+            // TODO case when there is a texture
+        }
+
+    }
+
+    indecies.insert(indecies.end(), vector_indecies.begin(), vector_indecies.end());
+    indecies.insert(indecies.end(), noramal_indecies.begin(), noramal_indecies.end());
+    indecies.insert(indecies.end(), uv_indices.begin(), uv_indices.end());
+
+
+    Mesh obj_mesh(vertices, indecies, textures);
+
 
     return true;
 }
